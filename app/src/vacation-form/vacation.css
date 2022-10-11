@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+/* Root */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.vacation-container {
+  max-width: 70%;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+
+/* Header */
+.vacation-header {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 20px;
+}
+
+.vacation-title {
+  width: 85%;
+}
+
+.vacation-btn {
+  width: 15%;
+}
+
+.vacation-back-a:visited,
+:link {
+  color: white;
+  text-decoration: none;
+}
+
+/* User Form */
+.add-form {
+  width: 100%;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 100%;
+  height: 50px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.user-inputs {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+/* Vacation Grid */
+.vacation-grid {
+  margin: 30px 5px 20px 5px;
+}
+
+
+/* Vacation Labels */
+.vacation-grid-box {
+  border: 1px solid #242424;
+  font-size: 16px;
+  text-align: center;
+  width: 12.5%;
+  height: 70px;
+}
+
+.padding {
+  padding: 7px;
+}
+
+.vacation-label {
+  font-weight: bold;
+}
+
+.vacation-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.vacation-column {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.vacation-column-reverse {
+  display: flex;
+  flex-flow: column-reverse nowrap;
+}
+
+.vacation-label-triple {
+  width: 25%;
+}
+
+.vacation-grid-box-triple-left {
+  width: 50%;
+  border-width: 1px 1px 0px 0px;
+  border-style: solid;
+  border-color: #242424;
+}
+
+.vacation-grid-box-triple-right {
+  width: 50%;
+  border-width: 1px 0px 0px 0px;
+  border-style: solid;
+  border-color: #242424;
+}
+
+.vacation-label-notes {
+  width: 25%;
+}
+
+/* Vacation Input */
+.vacation-input {
+  width: 12.5%;
+  height: 50px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.vacation-input-half {
+  width: 6.25%;
+  height: 50px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.vacation-input-large {
+  width: 25%;
+  height: 50px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.vacation-input-labels {
+  width: 25%;
+}
+
+.padding-top {
+  padding-top: 20px;
+}
+
+/* Submit button */
+.btn,
+.vacation-back-btn {
+  display: inline-block;
+  width: 20%;
+  background: steelblue;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+/* Vacation submission msg */
+.vacation-submission-true {
+  border: 5px solid steelblue;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}

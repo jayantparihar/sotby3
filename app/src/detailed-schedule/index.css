@@ -1,0 +1,31 @@
+h1,
+h2,
+h3 {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.li-link-to-res {
+    background-color: #003E6B;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 8px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.li-link-to-res:hover {
+    background-color: #5082A7;
+}
+
+.li-link-to-res:focus {
+    background-color: #003E6B;
+}

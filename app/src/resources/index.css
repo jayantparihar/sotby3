@@ -1,0 +1,88 @@
+h1,
+h3 {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+table caption {
+    background-color: #336dc4;
+    color: #ffffff;
+    font-size: 1.4em;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 14pt;
+    font-family: sans-serif;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #336dc4;
+    color: #ffffff;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 12px 15px;
+}
+
+td.course-desc {
+    font-size: 10pt;
+}
+
+tbody tr {
+    border-bottom: thin #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #336dc4;
+}
+
+/* tbody tr:hover {
+    background-color: #dedede;
+}
+
+tr:hover td {
+    background-color: transparent;
+} */
+
+button {
+    border-radius: 5;
+    background-color: #003E6B;
+    color: #ffffff;
+    padding: 0px 10px;
+    width: 8vw;
+    align-self: center;
+}
+
+button:hover,
+button:focus {
+    background-color: #5082A7;
+    color: #ffffff;
+}
+
+button:active {
+    background: rgb(0, 63, 50);
+    color: rgb(255, 255, 255, .7);
+}
+
+.modal {
+    background-color: #4c77af;
+}
+
+#popUpLabel {
+    color: #ffffff;
+}
+
+/* #popUpBookBtn {
+    width: 40%;
+} */

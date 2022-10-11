@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+/* App */
+.approval-app {
+    max-width: 50%;
+    margin: 30px auto;
+    border-radius: 5px;
+}
+
+/* VacationEntry */
+.approval-entry {
+    border: 1px solid steelblue;
+    margin: 10px;
+}
+
+.approval-entry-row {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.approval-entry-column {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.approval-entry-info {
+    width: 50%;
+    padding: 10px;
+}
+
+.approval-entry-btn {
+    width: 25%;
+    margin: 50px 50px 50px 0px;
+    font-size: 20px;
+}
+
+.approve-btn {
+    border: 2px solid rgb(95, 230, 95);
+    background-color: rgb(170, 231, 170);
+    box-shadow: 0 4px #999;
+}
+
+.approve-btn:hover {
+    background-color: rgb(152, 231, 152);
+}
+
+.approve-btn:active {
+    background-color: rgb(152, 231, 152);
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+.reject-btn {
+    border: 2px solid rgb(241, 150, 166);
+    background-color: rgb(233, 185, 194);
+    box-shadow: 0 4px #999;
+}
+
+.reject-btn:hover {
+    background-color: rgb(236, 170, 182)
+}
+
+.reject-btn:active {
+    background-color: rgb(236, 170, 182);
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+.approval-entry-name {
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px 8px 0px;
+}
+
+.approval-back-btn {
+    display: inline-block;
+    width: 20%;
+    background: steelblue;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+/* NoVacations */
+.approval-no-vacations {
+    max-width: 90%;
+    margin: 30px auto;
+    border: 1px solid steelblue;
+    border-radius: 5px;
+}
+
+.approval-no-vacations p {
+    margin: 50px auto;
+    text-align: center;
+    width: max-content;
+}
