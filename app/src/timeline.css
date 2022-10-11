@@ -14,12 +14,33 @@
     grid-auto-flow: column;
 }
 
+.grid-container-layout-weeks {
+    display: inline-grid;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    grid-template-columns: repeat(55, 175px);
+    grid-auto-flow: column;
+}
+
 .grid-container-months {
     display: inline-grid;
     grid-column-gap: 2px;
     grid-row-gap: 2px;
     grid-template-columns: repeat(55, 100px);
     grid-template-rows: 50px 100px;
+    grid-auto-flow: column;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 101;
+}
+
+.grid-container-weeks {
+    display: inline-grid;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    grid-template-columns: repeat(55, 175px);
+    grid-template-rows: 50px 50px;
     grid-auto-flow: column;
     position: sticky;
     top: 0;

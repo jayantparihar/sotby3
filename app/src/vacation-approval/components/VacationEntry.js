@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { makeStyles } from "@material-ui/core/styles";
+import React, { Component }  from 'react';
 
 const screenLayout = createTheme({
   breakpoints: {

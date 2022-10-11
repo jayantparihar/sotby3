@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NoCollisionYear from './NoCollision_Year';
 import MonthYear from './Month_Year';
+import Week from './Week';
 
 
 function SelectNav(props) {
@@ -38,7 +39,11 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
 
     let weekInformation = { weekNum: 0, weekRangesArray: [], indexMap: {} };
 
+    let dayInformation = { weekNum: 0, weekRangesArray: [], indexMap: {} };
+
     const initialMonthArray = getMonthArray(thisYear);
+
+    // const initialDayArray = getWeekDayArray(thisYear);
 
     const [year_month_array, setYearMonthArray] = useState(initialMonthArray);
 
@@ -57,9 +62,25 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         "December",
     ];
 
+    const weekDayNameArray = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+    ]
+
+    // const currentMonthArray = getCurrentMonth();
+
+
     const monthWeekArray = [
         5, 4, 4, 5, 4, 4, 5, 4, 4, 5
     ];
+
+
+    
 
     const firstWeekArray = getFirstWeek();
 
@@ -71,7 +92,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
 
     const [first_week, setFirstWeek] = useState(firstWeekArray[0]);
 
-    const [display, setDisplay] = useState('Month');
+    const [display, setDisplay] = useState('Week');
 
 
     function getMonthArray(year) {
@@ -85,6 +106,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
 
         return monthArray;
     }
+
 
     let totalWeeks = 0;
     for (let i = 0; i < monthArray.length; i++) {
@@ -142,6 +164,24 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         return firstWeek;
     }
 
+    
+    const createWeekColumns = () => {
+        
+        return (
+            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
+            weekInformation={weekInformation} totalWeeks={totalWeeks} firstWeek={first_week}
+            currentMonthWeeks={month_weeks} currentMonth={current_month} year={year} />
+            )
+        }
+        
+    const createDayColumns = () => {
+        
+        return (
+            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
+            weekInformation={weekInformation} totalWeeks={7} firstWeek={first_week}
+            currentMonthWeeks={7} currentMonth={current_month} year={year} />
+            )
+        }
     const createMonth = (item, i) => {
         return (
             <Month key={monthNameArray[item.monthIndex] + " month"} title={monthNameArray[item.monthIndex]}
@@ -149,19 +189,18 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                 next={nextMonth} previous={previousMonth} currentYear={year} />
         );
     }
-
-    const createWeeks = () => {
-
-        return (
-            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
-                weekInformation={weekInformation} totalWeeks={totalWeeks} firstWeek={first_week}
-                currentMonthWeeks={month_weeks} currentMonth={current_month} year={year} />
-        )
-    }
-
+            
     const createMonthYear = (item, i) => {
         return <MonthYear key={monthNameArray[item.monthIndex] + " month"} title={monthNameArray[item.monthIndex]}
             position={{ x: 1, y: i === 0 ? i + 3 : getNumberOfWeeks(initialMonthArray, i) + 3 }} weeks={item.weeks} />
+    }
+
+    const createWeek = (item, i) => {
+        return (
+            <Week key={monthNameArray[item.monthIndex] + " month"} title={monthNameArray[item.monthIndex]}
+                position={{ x: 1, y: i === 0 ? i + 3 : 3}} weeks={weekDayNameArray}
+                next={nextMonth} previous={previousMonth} currentYear={year} />
+        );
     }
 
 
@@ -183,6 +222,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                         autoWidth
                         label="Display"
                     >
+                        <MenuItem value={"Week"}>Week</MenuItem>
                         <MenuItem value={"Year"}>Year</MenuItem>
                         <MenuItem value={"Month"}>Month</MenuItem>
                     </Select>
@@ -207,11 +247,29 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                     }
                 </div>
                 {
-                    createWeeks()
+                    createWeekColumns()
                 }
             </React.Fragment>
         );
-    } else {
+    } else if (display === "Week") {
+        return (
+            <React.Fragment>
+                <SelectNav userStatus={ReactSession.get("admin")} />
+                <div className="grid-container-weeks">
+                    {
+                        createDisplayOption()
+                    }
+                    {
+                        createWeek(monthArray[current_month]    )
+                    }
+                </div>
+                {
+                    createDayColumns()
+                }
+            </React.Fragment>
+        )
+    }
+    if (display === "Year") {
         return (
             <React.Fragment>
                 <SelectNav userStatus={ReactSession.get("admin")} />
@@ -257,6 +315,8 @@ function getWeeks(startDate, month, weekInformation) {
     weekInformation.weekNum += weeks.length;
     return weeks;
 }
+
+
 
 function getNumberOfWeeks(weeks, index) {
     let sum = 0;

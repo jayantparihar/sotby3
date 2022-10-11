@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ReactSession } from 'react-client-session';
 import VacationApproval from "./vacation-approval/VacationApproval";
 import io from "socket.io-client";
+import React, { Component }  from 'react';
 const socket = io.connect('/');
 
 ReactSession.setStoreType("localStorage");

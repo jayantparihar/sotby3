@@ -1,5 +1,5 @@
 import Vacation from "./Vacation"
-
+import React, { Component }  from 'react';
 const VacationList = ({ vacations, onDelete }) => {
 	return (
 		<div>

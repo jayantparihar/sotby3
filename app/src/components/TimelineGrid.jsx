@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import _ from "lodash";
 import RowHeader from './RowHeader';
 import { useState } from "react";
+// const [display, setDisplay] = useState('Week');
 
 export default function TimelineGrid({socket, heightLimit, instructorArray, createCourse, totalWeeks, onRemoveUser, onAddUser}) {
     const initialRowHeaderArray = instructorArray;
@@ -69,18 +70,45 @@ export default function TimelineGrid({socket, heightLimit, instructorArray, crea
         });
     }, []);
 
-
+    // if (display === 'Week'){
+    //     return (
+    //         <React.Fragment>
+    //             <div className="grid-container-layout-weeks" style={{height:height}}>
+    //                 {
+    //                     rowHeaderArray.map((item, i) => {
+    //                         return (
+    //                             createRowHeader(item, i)
+    //                         )
+    //                     })
+    //                 }
+    //             </div>
+    //         </React.Fragment>
+    //     )
+    // } else {
+    //     return(
+    //         <React.Fragment>
+    //             <div className="grid-container-layout" style={{height:height}}>
+    //                 {
+    //                     rowHeaderArray.map((item, i) => {
+    //                         return (
+    //                             createRowHeader(item, i)
+    //                         )
+    //                     })
+    //                 }
+    //             </div>
+    //         </React.Fragment>
+    // )};
     return(
-        <React.Fragment>
-            <div className="grid-container-layout" style={{height:height}}>
-                {
-                    rowHeaderArray.map((item, i) => {
-                        return (
-                            createRowHeader(item, i)
-                        )
-                    })
-                }
-            </div>
-        </React.Fragment>
-    );
+                <React.Fragment>
+                    <div className="grid-container-layout-weeks" style={{height:height}}>
+                        {
+                            rowHeaderArray.map((item, i) => {
+                                return (
+                                    createRowHeader(item, i)
+                                )
+                            })
+                        }
+                    </div>
+                </React.Fragment>
+        )
 }
