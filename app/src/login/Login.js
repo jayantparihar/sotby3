@@ -59,7 +59,7 @@ export default function Login() {
     <div className='backgroundPic'>    
     <form onSubmit={authenticate} className={styles['login-form']}>
     <div align="center">
-        <img src={logo} alt='logo' height="150" width="150" ></img>
+        <img src={logo} alt='logo' height="150" width="170" ></img>
     </div>
     <h2>Account Login</h2>
       <label>
