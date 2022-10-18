@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import _ from "lodash";
 import RowHeader from './RowHeader';
 import { useState } from "react";
+import RowHeaderWeek from './RowHeader_Week'
 // const [display, setDisplay] = useState('Week');
 
 export default function TimelineGrid({socket, heightLimit, instructorArray, createCourse, totalWeeks, onRemoveUser, onAddUser}) {
@@ -46,11 +47,12 @@ export default function TimelineGrid({socket, heightLimit, instructorArray, crea
         if(emit)
             socket.emit('userDeleted', key, x); 
     }
-    
-    const createRowHeader = (item, i) => {
-        const x = i * 2 + 1;
-        return <RowHeader key={item.key + "rowHeader" + i} socket={socket} text={item.name} 
-                position={{x: x, y: 1}} width={totalWeeks} height={2}
+
+    const createRowHeaderWeek = (item, i) => {
+        const x = i * 3 + 1;
+        console.log(x, "x-value")
+        return <RowHeaderWeek key={item.key + "rowHeader" + i} socket={socket} text={item.name} 
+                position={{x: x, y: 1}} width={totalWeeks} height={3}
                 removeFunction={() => {
                     removeRowHeader(item.key, x)}} 
                     createCourse={createCourse}/>
@@ -100,11 +102,11 @@ export default function TimelineGrid({socket, heightLimit, instructorArray, crea
     // )};
     return(
                 <React.Fragment>
-                    <div className="grid-container-layout" style={{height:height}}>
+                    <div className="grid-container-layout-weeks" style={{height:height}}>
                         {
                             rowHeaderArray.map((item, i) => {
                                 return (
-                                    createRowHeader(item, i)
+                                    createRowHeaderWeek(item, i)
                                 )
                             })
                         }

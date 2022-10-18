@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NoCollisionYear from './NoCollision_Year';
+// week import
+import NoCollisionWeek from './NoCollision_Week';
 import MonthYear from './Month_Year';
 import Week from './Week';
 
@@ -177,7 +179,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
     const createDayColumns = () => {
         
         return (
-            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
+            <NoCollisionWeek socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
             weekInformation={weekInformation} totalWeeks={7} firstWeek={first_week}
             currentMonthWeeks={7} currentMonth={current_month} year={year} />
             )

@@ -1,7 +1,15 @@
 .grid-item-container {
     position: absolute;
-    top: 210px;
-    left: 200px;
+    top: 202px;
+    left: 203px;
+    /*Equal to number of rows * row height*/
+    height: 500px;
+}
+
+.grid-item-container-week {
+    position: absolute;
+    top: 150px;
+    left: 350px;
     /*Equal to number of rows * row height*/
     height: 500px;
 }

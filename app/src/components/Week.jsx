@@ -24,6 +24,7 @@ export default function Month({ title, socket, position, weeks, next, previous, 
                 weeks.map((item, i) => {
                     return <div key={title + item} className="grid-day" style={{ gridArea: (position.x + 1) + " / " + (position.y + i) + " / span 1 / span 1" }}>
                         {item}
+                        
                     </div>
                 })
             }
