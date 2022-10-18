@@ -1,5 +1,5 @@
 import React from "react";
-import Slot from "./Slot";
+import SlotWeek from "./Slot_Week";
 import { ReactSession } from 'react-client-session';
 
 export default function RowHeader({position, text, width, height, removeFunction, createCourse}) {
@@ -18,7 +18,7 @@ export default function RowHeader({position, text, width, height, removeFunction
 
     const createSlot= (item, i) => {
         return(
-            <Slot key={item.key} position={{x: item.pos.x, y: item.pos.y}} 
+            <SlotWeek key={item.key} position={{x: item.pos.x, y: item.pos.y}} 
             // Rowheader has 3 rows associated with it, one that can create courses, one that can't (vacation row)
             createCourse={item.pos.x % 3 != 0 ? createCourse : null} 
             name={text}/>
