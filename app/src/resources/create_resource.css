@@ -45,7 +45,7 @@
 .btn,
 .create-resource-back-btn {
   display: inline-block;
-  width: 30%;
+  width: 100%;
   background: steelblue;
   color: #fff;
   border: none;
