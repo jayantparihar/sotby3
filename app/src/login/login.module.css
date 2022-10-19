@@ -19,4 +19,17 @@
   }
   .footer{
     color: black;
+    
+  }
+  a:visited{
+    color:#FFFFFF
+  }
+
+  /* a:hover{
+    color:
+  } */
+
+#successMessage {
+    font-weight: bold;
+    color: red;
   }
