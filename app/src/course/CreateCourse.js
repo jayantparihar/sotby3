@@ -124,7 +124,7 @@ function Create_Course(socket) {
                             }}
                         />
         </label>
-        <button className="btn">Create Course</button>
+        <button >Create Course</button>
         <p id="successMessage"></p>
         </form>
         </> 
