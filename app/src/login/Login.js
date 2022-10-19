@@ -3,7 +3,6 @@ import bg from '../images/1.jpeg'
 import logo from '../images/BCIT_logo.png'
 
 import { ReactSession } from 'react-client-session';
-import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 // styles
@@ -12,11 +11,6 @@ import styles from './login.module.css'
 export default function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(username, password)
-  }
 
   const authenticate = async (e) => {
     let res_data = {};
@@ -42,7 +36,9 @@ export default function Login() {
         ReactSession.set("admin", res_data.admin);
         window.location.href = "/";
     } else {
-        document.getElementById("successMessage").innerText = "Incorrect username or password!"
+        document.getElementById("successMessage").innerText = "Incorrect username or password!";
+        document.getElementById("successMessage").style.color = 'Yellow';
+        document.getElementById("successMessage").style.fontWeight= 'Bold';
     }
 }
 
@@ -62,7 +58,9 @@ export default function Login() {
         <img src={logo} alt='logo' height="150" width="170" ></img>
     </div>
     <h2>Account Login</h2>
-      <label>
+    
+    <label><br/></label>
+      <label>        
         <span><b>Username:</b></span>
         <input 
           type="username" 
@@ -81,8 +79,9 @@ export default function Login() {
         />
       </label>
       <button className="btn">Login</button>
+      
+    <div  id='successMessage'></div>
     </form>
-    <div id="successMessage"></div>
     <center><Footer></Footer></center>
     </div>
 
