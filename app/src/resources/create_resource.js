@@ -1,109 +1,13 @@
-import React from 'react'
+
 import { useState } from 'react'
 import { ReactSession } from 'react-client-session';
-import './create_resource.css'
-import Header from "./components/Header";
-import Button from '@material-ui/core/Button';
-import { Typography } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import { styled } from '@mui/system';
-import { createTheme } from "@mui/material";
-
-const screenLayout = createTheme({
-    breakpoints: {
-        values: {
-            xxs: 0,
-            xs: 300,
-            lg: 800,
-        }
-    }
-});
-
-const buttonStyles = makeStyles({
-    button: {
-        border: 0,
-        borderRadius: 5,
-        color: "white",
-        padding: '0 10px',
-        background: "#003E6B",
-        '&:hover': {
-            background: "#5082A7",
-        },
-        '&:focus': {
-            background: "#003E6B",
-            '&:hover': {
-                background: "#5082A7"
-            }
-        },
-        marginTop: 10,
-        marginBottom: 10
-    }
-});
-
-const Container = styled('div')({
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "darkslategray",
-    backgroundColor: "white"
-})
-
-const Wrapper = styled('div')({
-    width: "75%",
-    height: "50%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
-    margin: "30px auto",
-    minHeight: "350px",
-    border: "1px solid steelblue",
-    padding: "30px",
-    borderRadius: "5px",
-    textAlign: "left",
-})
-
-const Form = styled('form')({
-    width: "50%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-})
-
-const Formwarpper = styled('div')({
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-})
-
-const TextWrapper = styled('div')({
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "darkslategray",
-    backgroundColor: "white",
-})
-
-const UserInputWrapper = styled('div')({
-
-})
-
-function SubmitButton() {
-    const classes = buttonStyles();
-    return <Button className={classes.button} type="submit">Create</Button>
-}
+import styles from './create_resource.module.css'
+import './create_resource.module.css'
+import React from 'react'
+import "react-datepicker/dist/react-datepicker.css";
+import AdminNav from "../../src/components/AdminNav";
+import { Link } from 'react-router-dom'
+import logo from '../images/BCIT_logo.png'
 
 function isAdmin() {
     let userStatus = ReactSession.get("admin");
@@ -122,7 +26,8 @@ function Create_resource(socket) {
 
     const create_resource = (e) => {
         e.preventDefault();
-
+        document.getElementById("successMessage").style.color = 'Red';
+        document.getElementById("successMessage").style.fontWeight= 'Bold';
         if (!model_num) {
             document.getElementById("successMessage").innerText = "Please enter a model number.";
             return;
@@ -154,77 +59,68 @@ function Create_resource(socket) {
         // feedback upon successful creation
         socket.on('resourceAdded', (user) => {
             document.getElementById("successMessage").innerText = "Resource successfully created."
+            document.getElementById("successMessage").style.color = 'Green';
+            document.getElementById("successMessage").style.fontWeight= 'Bold';
         });
 
         // displays error msg upon failure 
         socket.on('error', (error) => {
             document.getElementById("successMessage").innerText = "An error has occured! Please check your inputs.";
+            document.getElementById("successMessage").style.color = 'Red';
+            document.getElementById("successMessage").style.fontWeight= 'Bold';
 
         });
     }
 
     return isAdmin() ? (
-        <Container>
-            <Header />
-            <Wrapper theme={screenLayout} sx={{
-                flexDirection: {
-                    xxs: "column",
-                    xs: "column",
-                    lg: "row",
-                }
-            }}
-            >
-                <Formwarpper>
-                    <Form onSubmit={create_resource}>
-
-                        <text id='model-number'>Model Number</text>
-                        <input
+        <>
+        <AdminNav></AdminNav>
+        <label><br/></label>
+        <div align="center">
+            <Link to="/"><img src={logo} alt='logo' height="150" width="170" ></img></Link>
+            </div>
+                    <form onSubmit={create_resource} className={styles['resource-form']}>
+                        <h2>Create Resource</h2>
+                        <label>
+        <span>Model Number:</span>
+        <input
                             className="new-resource-input"
                             type="text"
                             placeholder="Model Number..."
                             value={model_num}
                             onChange={(e) => setModelNum(e.target.value)} />
-                        <text id='model-name-text'>Model Name</text>
-                        <input
+              </label>
+              <label>
+        <span>Model Name:</span>
+        <input
                             className="new-resource-input"
                             type="text"
                             placeholder="Model Name..."
                             value={model_name}
                             onChange={(e) => setModelName(e.target.value)} />
-                        <text id='quantity-number'>Quantity Total</text>
-                        <input
+              </label>
+              <label>
+        <span>Quantity Total:</span>
+        <input
                             className="new-resource-input"
                             type="text"
                             placeholder="Quantity Total..."
                             value={quantity_total}
-                            onChange={(e) => setQuantityTotal(e.target.value)} />
-                        <text id='model-location-text'>Model Location</text>
-                        <input
+                            onChange={(e) => setQuantityTotal(e.target.value)}/>
+              </label>
+              <label>
+        <span>Model Location:</span>
+        <input
                             className="new-resource-input"
                             type="text"
                             placeholder="Model Location..."
                             value={model_location}
-                            onChange={(e) => setModelLocation(e.target.value)} />
-
-                        <SubmitButton />
-                        <p id="successMessage"></p>
-                    </Form>
-                </Formwarpper>
-                <TextWrapper theme={screenLayout} sx={{
-                    display: {
-                        xxs: "none",
-                        xs: "none",
-                        lg: "flex",
-                    }
-                }}>
-                    <Typography>
-                        Use this form to create a resource that can booked for use. Quantity should be a
-                        positive number. Location should be the actual physical location of the resource,
-                        such as a BCIT campus.
-                    </Typography>
-                </TextWrapper>
-            </Wrapper>
-        </Container>
+                            onChange={(e) => setModelLocation(e.target.value)}/>
+              </label>
+        <button >Create Resource</button>
+        <p id="successMessage"></p>
+                    </form>
+                    </>
     ) : window.location.href = "/"
 }
 
