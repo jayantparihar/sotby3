@@ -9,7 +9,7 @@ export default function RowHeader({position, text, width, height, removeFunction
             for(let x = 0; x < height; x++) {
                 slots.push({
                     key: text + "x:" + (position.x + x) + "y:" + (position.y + y),
-                    pos: {x: position.x + x, y: position.y + y + 2},
+                    pos: {x: position.x + x , y: position.y + y + 2},
                 });
             }
         }

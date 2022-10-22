@@ -35,7 +35,7 @@ export default class LocalStorageLayout extends React.PureComponent {
           element.timeblocks.map((info) => {
             const start = findWeekIndex(weekInformation, info.start);
             const end = findWeekIndex(weekInformation, info.end);
-
+            console.log('start, end', start, end)
             const width = getCourseWidth(start, end, weekInformation, timeLineInformation);
 
             return (

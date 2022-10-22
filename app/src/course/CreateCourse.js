@@ -153,7 +153,7 @@ function Create_Course(socket) {
             colour: ""
         };
         socket.emit('courseAdded1', new_course);
-
+        console.log('CreateCourse.js\tcourse_created!')
         // feedback upon successful creation
         socket.on('courseAdded1', (user) => {
             document.getElementById("successMessage").innerText = "Course successfully created."
