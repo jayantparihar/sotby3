@@ -541,6 +541,8 @@ function getDayRange(d1, d2) {
 
 
 function findWeekIndex(weekInformation, date) {
+  console.log(weekInformation)
+
   // Search for a week in a particular month
   const monthIndex = date.getMonth();
 

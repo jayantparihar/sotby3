@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
+// this code is copy paste from month.jsx. i altered it to be a week view.
 export default function Month({ title, socket, position, weeks, next, previous, currentYear }) {
 
     return (
