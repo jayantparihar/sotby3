@@ -176,6 +176,16 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
     // see the 'previousWeek' function. its the same thing as this but mirrored.
     // console.log(new Date(2022, 01, 32))
     const nextWeek = async () => {
+        let d2 = new Date(current_date)
+
+        setDayNameArray(weekDayNameArray.map((element) => {
+            let weekDayName = String(element + '  ' + String(d2.getDate()))
+            d2.setDate(d2.getDate() + 1)
+            return  weekDayName
+        }))
+
+
+
         let new_date = new Date(current_date)
         const d = new Date(new_date.setDate(current_date.getDate() + 7))
 
@@ -210,16 +220,26 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         }
         
         setCurrentDate(d)
-        setDayNameArray(changeDayNameArray())
+        // setDayNameArray(changeDayNameArray())
 
     }
 
     // this function determines the week header for the previous week
     function previousWeek() {
+        let d2 = new Date(current_date)
+
+        setDayNameArray(weekDayNameArray.map((element) => {
+            let weekDayName = String(element + '  ' + String(d2.getDate()))
+            d2.setDate(d2.getDate() + 1)
+            return  weekDayName
+        }))
+
+
         // Step 1: find the date of last week monday
         let d = new Date(current_date)
         //last week monday
         d.setDate(d.getDate() - 7)
+
 
         // step 2: find the date of last friday (monday + 4 days)
         let next_date = new Date(d)
@@ -267,7 +287,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         setCurrentDate(d)
         // change the (monday 1, tuesday 2.. etc)
   
-        setDayNameArray(changeDayNameArray())
+        // setDayNameArray(changeDayNameArray())
 
     }
 
@@ -329,8 +349,8 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         console.log('createWeek says hi')
         return (
             <Week key={monthNameArray[current_month] + " month"} title={current_month_name}
-                position={{ x: 1, y: i === 0 ? i + 3 : 3}} weeks={week_day_names}
-                next={nextWeek} previous={previousWeek} currentYear={year} />
+                position={{ x: 1, y: i === 0 ? i + 3 : 3}} 
+                next={nextWeek} previous={previousWeek} currentYear={year} current_date={current_date} />
         );
     }
 
