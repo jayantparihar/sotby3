@@ -1,4 +1,5 @@
 import VacationEntry from "./VacationEntry"
+import React, { Component }  from 'react';
 
 const NotApprovedList = ({ vacations, onApprove, onReject }) => {
 

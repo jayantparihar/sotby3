@@ -1,3 +1,4 @@
+import React, { Component }  from 'react';
 const noVacations = () => {
   return (
     <div className="approval-no-vacations">

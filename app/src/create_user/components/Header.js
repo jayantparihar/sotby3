@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/system';
-
+import React, { Component }  from 'react';
 const styles = makeStyles({
     button: {
         border: 0,

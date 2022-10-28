@@ -1,7 +1,15 @@
 .grid-item-container {
     position: absolute;
-    top: 210px;
-    left: 200px;
+    top: 202px;
+    left: 203px;
+    /*Equal to number of rows * row height*/
+    height: 500px;
+}
+
+.grid-item-container-week {
+    position: absolute;
+    top: 150px;
+    left: 350px;
     /*Equal to number of rows * row height*/
     height: 500px;
 }
@@ -11,6 +19,14 @@
     grid-column-gap: 2px;
     grid-row-gap: 2px;
     grid-template-columns: repeat(55, 100px);
+    grid-auto-flow: column;
+}
+
+.grid-container-layout-weeks {
+    display: inline-grid;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    grid-template-columns: repeat(55, 175px);
     grid-auto-flow: column;
 }
 
@@ -27,7 +43,24 @@
     z-index: 101;
 }
 
+.grid-container-weeks {
+    display: inline-grid;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    grid-template-columns: repeat(55, 175px);
+    grid-template-rows: 50px 50px;
+    grid-auto-flow: column;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 101;
+}
+
 .grid-month {
+    background-color: lightgrey;
+}
+
+.grid-week {
     background-color: lightgrey;
 }
 
@@ -70,7 +103,7 @@
     padding: 10% 10% 0 10%;
     width: 60%;
     height: 50%;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 1);
     position: fixed;
     top: 25%;
     z-index: 9999;
