@@ -75,7 +75,13 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         'Friday'
     ]
 
-   
+    const firstWeekDayNameArray = [
+        'Monday 3',
+        'Tuesday 4',
+        'Wednesday 5',
+        'Thursday 6',
+        'Friday 7'
+    ]
 
 
     const monthWeekArray = [
@@ -105,7 +111,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
     //week view
     const [current_date, setCurrentDate] = useState(new Date("Jan 03, 2022 00:00:00"))
     //week view
-    const [current_day_name_array, setDayNameArray] = useState(changeDayNameArray())
+    const [current_day_name_array, setDayNameArray] = useState(firstWeekDayNameArray)
     
     console.log('current_date', current_date)
 
@@ -168,13 +174,14 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         }
     }
     // see the 'previousWeek' function. its the same thing as this but mirrored.
+    // console.log(new Date(2022, 01, 32))
     const nextWeek = async () => {
-        let d = new Date(current_date)
-        d.setDate(d.getDate() + 7)
+        let new_date = new Date(current_date)
+        const d = new Date(new_date.setDate(current_date.getDate() + 7))
 
-        let next_date = new Date(current_date)
-        next_date.setDate(current_date.getDate() + 4)
-        const friday_month = next_date.getMonth()
+        let next_week_friday = new Date(new_date)
+        next_week_friday.setDate(current_date.getDate() + 4)
+        const friday_month = next_week_friday.getMonth();
 
         if (current_month_name.includes('-')) {
             setCurrentMonthName(monthNameArray[current_month])
@@ -203,7 +210,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         }
         
         setCurrentDate(d)
-        await setDayNameArray(changeDayNameArray())
+        setDayNameArray(changeDayNameArray())
 
     }
 
@@ -259,13 +266,14 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         // change the current_date (this variable is important for displaying the course_assingments)
         setCurrentDate(d)
         // change the (monday 1, tuesday 2.. etc)
+  
         setDayNameArray(changeDayNameArray())
 
     }
 
     // creates a new label for each weekday header (from monday 3, tuesday 4.... to monday 10, tuesday 11...)
     function changeDayNameArray() {
-        let d = new Date(current_date)
+        const d = new Date(current_date)
         const newNameArray = weekDayNameArray.map((element) => {
             let weekDayName = String(element + '  ' + String(d.getDate()))
             d.setDate(d.getDate() + 1)

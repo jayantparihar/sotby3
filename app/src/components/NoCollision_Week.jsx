@@ -8,7 +8,7 @@ import RGL, { WidthProvider } from "react-grid-layout";
 export default class LocalStorageLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
-    rowHeight: 67,
+    rowHeight: 80,
     margin: [2, 2],
     allowOverlap: true,
     preventCollision: false,
@@ -29,7 +29,9 @@ export default class LocalStorageLayout extends React.PureComponent {
     this.state = {
       // Loops through the instructor array to get all the courses associated with them
       items: newInstructorArray.reduce(function (acc, element, index) {
+
         if ((element.timeblocks.length === 0 && element.vacations.length === 0) || weekInformation.length === 0) {
+          
           return acc;
         }
 
@@ -40,16 +42,20 @@ export default class LocalStorageLayout extends React.PureComponent {
           element.timeblocks.map((info) => {
 
             // this stuff determines the amount of days the course_assignments are from the firstDate -> jan 3, 2022
-            const start = getDayRange(currentDate, info.start) + currentDate.getDate()
-            const end = getDayRange(currentDate, info.end) + currentDate.getDate()
-            console.log('timeblock start, end', start, end)
+            const start = getDayRange(currentDate, info.start)
+            const end = getDayRange(currentDate, info.end) + 1
+            // console.log('timeblock start, end', start, end)
             // console.log('current Date', currentDate)
-            console.log(info.start.getDate(), info.end.getDate())
+            // console.log('info.start', info.start.getDate()) 
+            // console.log('info.end', info.end.getDate())
+            // console.log('start', start)
+            // console.log('end', end)
+            // console.log('currentDate', currentDate)
 
             // determines how many days this event will stretch on the week view.
             // it will give any course_assignment that isnt shown in the first week a width of 0. (makes it invisible :0)
             const width = getCourseWidth(start, end, currentDate);
-            
+            // console.log('width', width)
             // the data values are basically coordinates and dimensions for a 'react-grid-layout' or RGL.
             // i recommend looking the documentation to know what this is doing (lookup: RGL and react-grid-layout).
             return (
@@ -175,7 +181,7 @@ export default class LocalStorageLayout extends React.PureComponent {
       if (this.state.layout[i].i === item.i) {
         const newLayout = this.state.layout.slice();
         newLayout[i] = item;
-        console.log('item', item)
+
 
         this.setState({
           layout: newLayout
@@ -187,7 +193,7 @@ export default class LocalStorageLayout extends React.PureComponent {
   }
 
   onLayoutChange = (layout) => {
-    console.log('layout', layout)
+
     this.setState({
       layout: layout
     });
@@ -242,13 +248,12 @@ export default class LocalStorageLayout extends React.PureComponent {
 
     // this broke in the begining of adjusting the code. i dont know how to fix it yet. 
     // totally doable tho. see next change on line 422
-    const startDate = findWeekDate(this.state.weekInformation, x + this.props.firstWeek);
-    const endDate = findWeekDate(this.state.weekInformation, w + x + this.props.firstWeek);
+    const startDate = findWeekDate(this.state.weekInformation, x, this.props.firstWeek);
+    const endDate = findWeekDate(this.state.weekInformation, w + x, this.props.firstWeek);
     const instructor = this.state.instructorArray[Math.floor(y / 2)];
-    console.log('start and end date', startDate, endDate)
-    console.log('x', x)
-    const start = findWeekIndex(this.props.current_date, startDate);
-    const end = findWeekIndex(this.props.current_date, endDate);
+
+    const start = getCourseWidth(this.props.current_date, startDate);
+    const end = getCourseWidth(this.props.current_date, endDate);
 
     // User/ instructor was deleted, can't create a course
     if (instructor === undefined) {
@@ -435,7 +440,7 @@ export default class LocalStorageLayout extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.current_date !== prevProps.current_date) {
       this.onLayoutChange(this.itemLayout);
-      console.log('layout change!')
+
     }
   }
 
@@ -453,16 +458,17 @@ export default class LocalStorageLayout extends React.PureComponent {
     var random = this.state.items.filter((item) => {
       const start = item.start;
       const end = item.end;
-      // console.log('start, end',start, end)
+
+
       const width = getCourseWidth(start, end, this.props.currentDate, this.firstDate); //i change 'width' to be the result of this function i made. same thing on line 468
-      
+
       if (width === 0) {
         return false;
       }
 
       return true;
     })
-    // console.log('this.state.items',this.state.items)
+
 
     random.forEach(element => {
       const width = getCourseWidth(element.start, element.end, this.props.currentDate, this.firstDate);//i change 'width' to be the result of this function i made. next change on line 499
@@ -506,8 +512,8 @@ function getCourseWidth(start, end, currentDate, firstDate='nothing :D') {
   // week is an incremented array of 'day values'
   const week = _.range(monday, friday + 1)
 
-  console.log('week', week) 
-  console.log(' course', course)
+  // console.log('week', week) 
+  // console.log(' course', course)
   
   // intersect is an array of all the values the week and course share.
   const intersection = course.filter(value => week.includes(value));
@@ -519,12 +525,14 @@ function getCourseWidth(start, end, currentDate, firstDate='nothing :D') {
 
 // this function gets how many days apart the current view's monday and friday are from jan 3 2022
 function getMonFri(currentDate, firstDate) {
-  let monday = currentDate.getDate()
-  let friday = monday + 4
+  const new_date = new Date(currentDate)
+  const monday = new_date.getDate()
+  const friday = monday + 4
   
   if ((typeof firstDate !== 'undefined') && (firstDate !== 'nothing :D')){
-    let new_monday = getDayRange(firstDate, currentDate) +firstDate.getDate()
-    let new_friday = getDayRange(firstDate, currentDate) + firstDate.getDate() + 4
+    let new_monday = getDayRange(firstDate, currentDate)
+    let new_friday = getDayRange(firstDate, currentDate) + 4
+
     return [new_monday, new_friday]
   } else {
     return [monday, friday]
@@ -541,7 +549,7 @@ function getDayRange(d1, d2) {
 
 
 function findWeekIndex(weekInformation, date) {
-  console.log(weekInformation)
+  
 
   // Search for a week in a particular month
   const monthIndex = date.getMonth();
@@ -560,6 +568,6 @@ function findWeekIndex(weekInformation, date) {
   return weekRanges[weekRanges.length - 1].index;
 }
 
-function findWeekDate(weekInformation, index) {
+function findWeekDate(weekInformation, index, firstDate) {
   return weekInformation.indexMap[index];
 }

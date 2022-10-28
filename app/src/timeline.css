@@ -60,6 +60,10 @@
     background-color: lightgrey;
 }
 
+.grid-week {
+    background-color: lightgrey;
+}
+
 .grid-day {
     background-color: lightgreen;
     text-align: center;

@@ -303,7 +303,7 @@ export default class LocalStorageLayout extends React.PureComponent {
       <div key={el.data.i} data-grid={isVacation ? { ...el.data, isDraggable: false, isResizable: false } : el.data} name={el.text + " el"} >
         <span className="text">{el.text}</span>
         {
-          ReactSession.get("admin") !== undefined ?
+          ReactSession.get("admin") === 1 ?
             <span
               className="remove"
               style={removeStyle}
@@ -314,7 +314,7 @@ export default class LocalStorageLayout extends React.PureComponent {
             :
             undefined
         }
-        {!isVacation && ReactSession.get("admin") !== undefined ?
+        {!isVacation && ReactSession.get("admin") === 1 ?
           <Link
             to={{
               pathname: "/detailed-schedule",

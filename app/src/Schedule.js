@@ -34,6 +34,7 @@ export default class App extends React.Component {
       return null;
     }
     const parsedData = JSON.parse(data);
+
     let instructorArray = {};
     for (let i = 0; i < parsedData.length; i++) {
       const key = parsedData[i].username;

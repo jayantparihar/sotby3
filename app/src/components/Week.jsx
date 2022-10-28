@@ -3,10 +3,12 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import {useEffect} from 'react';
+import { useState } from 'react';
 
 // this code is copy paste from month.jsx. i altered it to be a week view.
-export default function Month({ title, socket, position, weeks, next, previous, currentYear }) {
-
+export default function Week({ title, socket, position, weeks, next, previous, currentYear }) {
+    console.log('weeks', weeks)
     return (
         <React.Fragment>
             <div className="grid-month" style={{ gridArea: position.x +" / " + position.y  + " / span 1 / span " + weeks.length }}>
