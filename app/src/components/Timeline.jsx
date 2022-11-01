@@ -12,7 +12,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NoCollisionYear from './NoCollision_Year';
+// week import
+import NoCollisionWeek from './NoCollision_Week';
 import MonthYear from './Month_Year';
+import Week from './Week';
 
 
 function SelectNav(props) {
@@ -31,14 +34,21 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
     const [year, setYear] = useState(2022);
 
     let thisYear = new Date();
-    thisYear.setFullYear(year, 0, 1, 1);
+    thisYear.setFullYear(year, 0, 1);
 
-    console.log(instructorArray);
-    console.log(thisYear);
+    // this is a base for when the app starts
+    let startYear =  new Date("Jan 01, 2022 00:00:00");
+
+
+    // console.log('instructorArray',instructorArray);
+    // console.log('thisYear',thisYear);
 
     let weekInformation = { weekNum: 0, weekRangesArray: [], indexMap: {} };
 
+
     const initialMonthArray = getMonthArray(thisYear);
+
+    // const initialDayArray = getWeekDayArray(thisYear);
 
     const [year_month_array, setYearMonthArray] = useState(initialMonthArray);
 
@@ -56,10 +66,30 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         "November",
         "December",
     ];
+    // week view
+    const weekDayNameArray = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday'
+    ]
+
+    const firstWeekDayNameArray = [
+        'Monday 3',
+        'Tuesday 4',
+        'Wednesday 5',
+        'Thursday 6',
+        'Friday 7'
+    ]
+
 
     const monthWeekArray = [
         5, 4, 4, 5, 4, 4, 5, 4, 4, 5
     ];
+
+
+    
 
     const firstWeekArray = getFirstWeek();
 
@@ -67,12 +97,23 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
 
     const [current_month, setCurrentMonth] = useState(0);
 
+    const [current_month_name, setCurrentMonthName] = useState(monthNameArray[current_month])
+    // week view
+    const [current_week, setCurrentWeek] = useState(0);
+
     const [month_weeks, setMonthWeeks] = useState(monthWeekArray[current_month]);
 
     const [first_week, setFirstWeek] = useState(firstWeekArray[0]);
+    // week view
+    const [first_day, setFirstDay] = useState(1);
 
-    const [display, setDisplay] = useState('Month');
-
+    const [display, setDisplay] = useState('Week');
+    //week view
+    const [current_date, setCurrentDate] = useState(new Date("Jan 03, 2022 00:00:00"))
+    //week view
+    const [current_day_name_array, setDayNameArray] = useState(firstWeekDayNameArray)
+    
+    console.log('current_date', current_date)
 
     function getMonthArray(year) {
 
@@ -85,6 +126,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
 
         return monthArray;
     }
+
 
     let totalWeeks = 0;
     for (let i = 0; i < monthArray.length; i++) {
@@ -131,6 +173,134 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
             setFirstWeek(firstWeekArray[current_month - 1]);
         }
     }
+    // see the 'previousWeek' function. its the same thing as this but mirrored.
+    // console.log(new Date(2022, 01, 32))
+    const nextWeek = async () => {
+        let d2 = new Date(current_date)
+
+        setDayNameArray(weekDayNameArray.map((element) => {
+            let weekDayName = String(element + '  ' + String(d2.getDate()))
+            d2.setDate(d2.getDate() + 1)
+            return  weekDayName
+        }))
+
+
+
+        let new_date = new Date(current_date)
+        const d = new Date(new_date.setDate(current_date.getDate() + 7))
+
+        let next_week_friday = new Date(new_date)
+        next_week_friday.setDate(current_date.getDate() + 4)
+        const friday_month = next_week_friday.getMonth();
+
+        if (current_month_name.includes('-')) {
+            setCurrentMonthName(monthNameArray[current_month])
+        }
+
+        if ( friday_month!=current_date.getMonth() ){
+            if (current_month == 11){
+                setCurrentMonthName(monthNameArray[current_month] + ' - ' + monthNameArray[0] );
+                setCurrentMonth(0);
+                setYear(year + 1);
+            } else {
+                setCurrentMonthName(monthNameArray[current_month] + ' - ' + monthNameArray[current_month + 1] )
+                setCurrentMonth(current_month + 1);
+            }
+        } else {
+            if (current_date.getMonth() != d.getMonth()) {
+                if (current_month == 11) {
+                    setCurrentMonthName(monthNameArray[0])
+                    setCurrentMonth(0);
+                    setYear(year + 1);
+                } else {
+                    setCurrentMonthName(monthNameArray[current_month + 1])
+                    setCurrentMonth(current_month + 1);
+                }
+            }
+        }
+        
+        setCurrentDate(d)
+        // setDayNameArray(changeDayNameArray())
+
+    }
+
+    // this function determines the week header for the previous week
+    function previousWeek() {
+        let d2 = new Date(current_date)
+
+        setDayNameArray(weekDayNameArray.map((element) => {
+            let weekDayName = String(element + '  ' + String(d2.getDate()))
+            d2.setDate(d2.getDate() + 1)
+            return  weekDayName
+        }))
+
+
+        // Step 1: find the date of last week monday
+        let d = new Date(current_date)
+        //last week monday
+        d.setDate(d.getDate() - 7)
+
+
+        // step 2: find the date of last friday (monday + 4 days)
+        let next_date = new Date(d)
+        next_date.setDate(next_date.getDate() + 4)
+        const friday_month = next_date.getMonth()
+
+        // This checks if the last month title was like jan-feb.
+        // if so change it to a regular month
+        if (current_month_name.includes('-')) {
+            setCurrentMonthName(monthNameArray[current_month])
+        }
+
+        console.log(current_month)
+        // tip: these nested if statements should be nested the other way round. lots of redundency here.
+        // if friday and monday of last week is not the same.
+        // then make title like jan-feb
+        if ( friday_month!=current_date.getMonth() ){
+            
+            // before setting the title determine if the next month of the previous year (going from jan to dec)
+            if (current_date.getMonth() == 0){
+                setCurrentMonthName(monthNameArray[current_date.getMonth()] + ' - ' + monthNameArray[11] )
+                setCurrentMonth(11);
+                setYear(year - 1);
+            // if not then do this.
+            } else {
+                setCurrentMonthName(monthNameArray[current_date.getMonth()] + ' - ' + monthNameArray[current_month - 1] )
+                setCurrentMonth(current_month - 1);
+            }
+        } else {
+            // if previous week is in a different month entirely. then set month title to ie jan
+            if (current_date.getMonth() != d.getMonth()) {
+                // before setting the title determine if the next month of the previous year (going from jan to dec)
+                if (current_date.getMonth() == 0){
+                    setCurrentMonthName(monthNameArray[11])
+                    setCurrentMonth(11);
+                    setYear(year - 1);
+                // if not then do this.
+                } else {
+                    setCurrentMonthName(monthNameArray[current_date.getMonth() - 1])
+                    setCurrentMonth(current_date.getMonth() - 1);
+                }
+            }
+        }
+        // change the current_date (this variable is important for displaying the course_assingments)
+        setCurrentDate(d)
+        // change the (monday 1, tuesday 2.. etc)
+  
+        // setDayNameArray(changeDayNameArray())
+
+    }
+
+    // creates a new label for each weekday header (from monday 3, tuesday 4.... to monday 10, tuesday 11...)
+    function changeDayNameArray() {
+        const d = new Date(current_date)
+        const newNameArray = weekDayNameArray.map((element) => {
+            let weekDayName = String(element + '  ' + String(d.getDate()))
+            d.setDate(d.getDate() + 1)
+            return  weekDayName
+        })
+        return newNameArray
+    }
 
     function getFirstWeek() {
         var firstWeek = [0];
@@ -142,6 +312,25 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
         return firstWeek;
     }
 
+    
+    const createWeekColumns = () => {
+        
+        return (
+            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
+            weekInformation={weekInformation} totalWeeks={totalWeeks} firstDate={new Date("Jan 03, 2022 00:00:00")}
+            currentMonthWeeks={month_weeks} currentMonth={current_month} year={year} />
+            )
+        }
+    // this is just for the week view rows and instructor header. it imports 'noCollision_week.jsx'.
+    // keep in mind some of these values are useless as it was originally copied from the month_view one above ^
+    const createDayColumns = () => {
+        const current_week_date = ''
+        return (
+            <NoCollisionWeek socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
+            weekInformation={weekInformation} totalWeeks={7} currentDate={current_date} firstWeek={first_week} firstDay={first_day}
+            currentWeekDays={5} currentMonth={current_month} currentWeek={current_week} year={year} />
+            )
+        }
     const createMonth = (item, i) => {
         return (
             <Month key={monthNameArray[item.monthIndex] + " month"} title={monthNameArray[item.monthIndex]}
@@ -149,19 +338,20 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                 next={nextMonth} previous={previousMonth} currentYear={year} />
         );
     }
-
-    const createWeeks = () => {
-
-        return (
-            <NoCollisionLayout socket={socket} heightLimit={heightLimit} newInstructorArray={instructorArray}
-                weekInformation={weekInformation} totalWeeks={totalWeeks} firstWeek={first_week}
-                currentMonthWeeks={month_weeks} currentMonth={current_month} year={year} />
-        )
-    }
-
+            
     const createMonthYear = (item, i) => {
         return <MonthYear key={monthNameArray[item.monthIndex] + " month"} title={monthNameArray[item.monthIndex]}
             position={{ x: 1, y: i === 0 ? i + 3 : getNumberOfWeeks(initialMonthArray, i) + 3 }} weeks={item.weeks} />
+    }
+    // this is just for the week view header. it imports 'Week.jsx'
+    // keep in mind some of these values are useless as it was originally copied from the month_view one above ^ 'createMonth()'
+    const createWeek = (week_day_names, item, i) => {
+        console.log('createWeek says hi')
+        return (
+            <Week key={monthNameArray[current_month] + " month"} title={current_month_name}
+                position={{ x: 1, y: i === 0 ? i + 3 : 3}} 
+                next={nextWeek} previous={previousWeek} currentYear={year} current_date={current_date} />
+        );
     }
 
 
@@ -183,6 +373,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                         autoWidth
                         label="Display"
                     >
+                        <MenuItem value={"Week"}>Week</MenuItem>
                         <MenuItem value={"Year"}>Year</MenuItem>
                         <MenuItem value={"Month"}>Month</MenuItem>
                     </Select>
@@ -192,7 +383,7 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
     }
 
 
-    console.log(thisYear);
+    
 
     if (display === "Month") {
         return (
@@ -207,11 +398,29 @@ export default function Timeline({ socket, heightLimit, instructorArray }) {
                     }
                 </div>
                 {
-                    createWeeks()
+                    createWeekColumns()
                 }
             </React.Fragment>
         );
-    } else {
+    } else if (display === "Week") {
+        return (
+            <React.Fragment>
+                <SelectNav userStatus={ReactSession.get("admin")} />
+                <div className="grid-container-weeks">
+                    {
+                        createDisplayOption()
+                    }
+                    {
+                        createWeek(current_day_name_array,monthArray[current_month]    )
+                    }
+                </div>
+                {
+                    createDayColumns()
+                }
+            </React.Fragment>
+        )
+    }
+    if (display === "Year") {
         return (
             <React.Fragment>
                 <SelectNav userStatus={ReactSession.get("admin")} />
@@ -257,6 +466,8 @@ function getWeeks(startDate, month, weekInformation) {
     weekInformation.weekNum += weeks.length;
     return weeks;
 }
+
+
 
 function getNumberOfWeeks(weeks, index) {
     let sum = 0;

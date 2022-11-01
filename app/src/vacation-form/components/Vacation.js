@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/system';
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from "@material-ui/core/Button";
-
+import React, { Component }  from 'react';
 const VacationLayout = styled('div')({
 	display: "flex",
 	flexDirection: "row",

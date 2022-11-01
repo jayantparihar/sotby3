@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b7938b78.css",
+    "main.js": "/static/js/main.3cb0ce48.js",
+    "static/media/BCIT_logo.png": "/static/media/BCIT_logo.4b5b99360586c6e1f482.png",
+    "index.html": "/index.html",
+    "main.b7938b78.css.map": "/static/css/main.b7938b78.css.map",
+    "main.3cb0ce48.js.map": "/static/js/main.3cb0ce48.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7938b78.css",
+    "static/js/main.3cb0ce48.js"
+  ]
+}

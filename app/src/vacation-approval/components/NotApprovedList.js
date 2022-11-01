@@ -3,7 +3,9 @@ import VacationEntry from "./VacationEntry"
 const NotApprovedList = ({ vacations, onApprove, onReject }) => {
 
     const capitalizeString = (string) => {
+        if (string){
         return string.charAt(0).toUpperCase() + string.slice(1)
+        }
     }
 
     const usernameToName = (vacation) => {

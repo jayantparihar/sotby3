@@ -61,6 +61,7 @@ export default class App extends React.Component {
           caId: parsedData[i].ca_id,
           userId: parsedData[i].username
         });
+        
       }
 
       // Check if there are any valid vacations associated with the instructor
@@ -99,6 +100,7 @@ export default class App extends React.Component {
   }
 
   renderApp() {
+
     return (
       <div className="App">
         {(this.state.error !== "") ?
