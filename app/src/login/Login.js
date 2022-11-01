@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import bg from '../images/1.jpeg'
 import logo from '../images/BCIT_logo.png'
+import React from "react";
 
 import { ReactSession } from 'react-client-session';
 import Footer from "./components/Footer";
