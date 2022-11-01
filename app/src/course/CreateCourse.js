@@ -112,6 +112,7 @@ function Create_Course(socket) {
                             placeholder="Title..."
                             value={title}
                             onChange={(e) => setTitle(e.target.value)} />
+                            
         </label>
         <label>
         <text id='start-and-end'>Duration: </text>
