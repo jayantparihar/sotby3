@@ -19,4 +19,39 @@
   }
   .footer{
     color: black;
+    
+  }
+  a:visited{
+    color:#FFFFFF
+  }
+
+  .login-form button {
+    display: inline-block;
+    width: 100%;
+    background: steelblue;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  
+  .login-form button:focus {
+    outline: none;
+  }
+  
+  .login-form button:active {
+    transform: scale(0.98);
+  }
+  /* a:hover{
+    color:
+  } */
+
+#successMessage {
+    font-weight: bold;
+    color: red;
   }

@@ -65,6 +65,8 @@ function Create_resource(socket) {
         // displays error msg upon failure 
         socket.on('error', (error) => {
             document.getElementById("successMessage").innerText = "An error has occured! Please check your inputs.";
+            document.getElementById("successMessage").style.color = 'Red';
+            document.getElementById("successMessage").style.fontWeight= 'Bold';
 
         });
     }

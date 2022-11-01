@@ -1,0 +1,42 @@
+.course-form {
+  max-width: 360px;
+  margin: 10px auto;
+  padding: 20px;
+}
+.course-form label {
+  display: block;
+  margin: 20px auto;
+}
+.course-form span {
+  display: block;
+  margin-bottom:6px;
+}
+.course-form input {
+  padding: 8px 6px;
+  font-size: 1em;
+  color: #777;
+  width: 100%;
+}
+
+.course-form button {
+  display: inline-block;
+  width: 100%;
+  background: steelblue;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.course-form button:focus {
+  outline: none;
+}
+
+.course-form button:active {
+  transform: scale(0.98);
+}
