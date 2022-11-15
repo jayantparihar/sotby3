@@ -19,6 +19,7 @@ const AdminNav = ({ title }) => {
     );
 };
 
+
 AdminNav.defaultProps = {
     title: 'Admin Nav',
 }
