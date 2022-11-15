@@ -18,6 +18,9 @@
 .nav-li {
   float: left;
 }
+.nav-li2 {
+  float: right;
+}
 
 li a {
   display: block;
